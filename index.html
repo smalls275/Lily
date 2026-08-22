@@ -45,6 +45,9 @@
     h1, h2, h3 { margin: 0; line-height: 1.05; }
     h1 { max-width: 680px; font-size: clamp(2.8rem, 8vw, 6.5rem); }
     header p { max-width: 560px; margin: 18px 0 0; font-size: 1.2rem; }
+    .progress { max-width: 420px; margin-top: 28px; font: 700 0.85rem Arial, sans-serif; }
+    .progress-track { height: 10px; margin-top: 8px; overflow: hidden; background: rgba(36, 49, 59, 0.18); }
+    .progress-bar { width: 0; height: 100%; background: var(--coral); transition: width 180ms ease-out; }
 
     main { max-width: 1160px; margin: 0 auto; padding: 42px 7vw 70px; }
     .lesson-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
@@ -62,7 +65,7 @@
     .number { color: var(--coral); font: 700 2rem/1 Arial, sans-serif; }
     .lesson:nth-child(2) .number { color: var(--mint-dark); }
     .lesson h2 { margin-top: 14px; font-size: 2rem; }
-    .lesson p { margin-bottom: 0; color: var(--muted); }
+    .lesson p { margin-bottom: 18px; color: var(--muted); }
 
     .practice { margin-top: 56px; }
     .practice h2 { font-size: 3rem; }
@@ -93,6 +96,16 @@
 
     button:hover, button:focus { background: var(--coral); }
     #js-result { min-height: 32px; margin: 15px 0 0; font-size: 1.25rem; font-weight: 700; }
+    .mark-button { margin-top: auto; padding: 8px 12px; color: var(--ink); background: transparent; border-color: var(--ink); font-size: 0.85rem; }
+    .lesson { display: flex; flex-direction: column; align-items: flex-start; }
+    .lesson.is-complete { outline: 5px solid var(--mint-dark); outline-offset: -5px; }
+    .lesson.is-complete .mark-button { color: var(--paper); background: var(--mint-dark); }
+    .html-playground { margin-top: 18px; }
+    .editor-label { display: block; margin-bottom: 8px; font: 700 0.9rem Arial, sans-serif; }
+    textarea { width: 100%; min-height: 120px; padding: 12px; resize: vertical; border: 2px solid var(--ink); color: var(--ink); background: #fff; font: 0.95rem/1.5 Consolas, monospace; }
+    .preview { width: 100%; min-height: 120px; margin-top: 14px; border: 2px solid var(--ink); background: #fff; }
+    .preview-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .reset-button { padding: 7px 10px; color: var(--ink); background: transparent; border-color: var(--ink); font-size: 0.85rem; }
     .tip { margin-top: 22px; padding: 14px 16px; background: #fff3c9; border-left: 5px solid var(--sun); }
 
     footer { padding: 24px 7vw; color: var(--muted); background: var(--ink); font-family: Arial, sans-serif; }
@@ -109,24 +122,31 @@
     <p class="eyebrow">Lily's first coding garden</p>
     <h1>Make a little. Learn a lot.</h1>
     <p>Welcome, Lily! Code is a way to give ideas instructions. Every tiny experiment is a discovery.</p>
+    <div class="progress" aria-label="Lesson progress">
+      <span id="progress-label">0 of 3 lessons explored</span>
+      <div class="progress-track"><div id="progress-bar" class="progress-bar"></div></div>
+    </div>
   </header>
 
   <main>
     <section class="lesson-grid" aria-label="Coding lessons">
-      <article class="lesson">
+      <article class="lesson" data-lesson="html">
         <span class="number">01</span>
         <h2>HTML</h2>
         <p>Build the page. HTML gives words, pictures, and buttons a home.</p>
+        <button class="mark-button" type="button" data-mark="html">Mark explored</button>
       </article>
-      <article class="lesson">
+      <article class="lesson" data-lesson="javascript">
         <span class="number">02</span>
         <h2>JavaScript</h2>
         <p>Make it happen. JavaScript helps a page listen, think, and respond.</p>
+        <button class="mark-button" type="button" data-mark="javascript">Mark explored</button>
       </article>
-      <article class="lesson">
+      <article class="lesson" data-lesson="python">
         <span class="number">03</span>
         <h2>Python</h2>
         <p>Tell bigger stories. Python is great for puzzles, games, and useful tools.</p>
+        <button class="mark-button" type="button" data-mark="python">Mark explored</button>
       </article>
     </section>
 
@@ -134,6 +154,13 @@
       <h2>Try a tiny experiment</h2>
       <p class="practice-intro">Read each example, guess what it will do, then press the button. You can change the words later.</p>
       <div class="playground">
+        <article class="panel html-playground">
+          <div class="preview-heading"><h3>HTML builds a card</h3><button id="reset-html" class="reset-button" type="button">Reset example</button></div>
+          <label class="editor-label" for="html-editor">Write some HTML</label>
+          <textarea id="html-editor" spellcheck="false"><h2>Hello, Lily!</h2>
+<p>I made this with HTML.</p></textarea>
+          <iframe id="html-preview" class="preview" title="HTML code preview" sandbox=""></iframe>
+        </article>
         <article class="panel">
           <h3>JavaScript says hello</h3>
           <pre class="code">const name = "Lily";
@@ -153,7 +180,7 @@ for star in range(stars):
     </section>
   </main>
 
-  <footer>Made for curious minds. Keep asking, testing, and making.</footer>
+  <footer>Made for curious minds. Keep asking, testing, and making. <span id="server-status">Checking Python server...</span></footer>
 
 </body>
 </html>

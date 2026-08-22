@@ -1,13 +1,33 @@
 # Lily's Coding Garden
 
-This branch is a gentle starting point for Lily to explore three coding languages:
+A dependency-free learning project for HTML, JavaScript, and Python.
 
-- **HTML** builds the structure of a web page.
-- **JavaScript** makes the page interactive. Click the button in `index.html` to run it.
-- **Python** is introduced with a small counting example. Run it with a Python installation or an online Python editor.
+## Project map
 
-## Try it
+- `index.html` contains the lessons and an HTML editor with a live preview.
+- `app.js` handles the JavaScript greeting, saved lesson progress, and server status.
+- `server.py` serves the site and provides `/api/health` and `/api/lessons` JSON routes.
+- `test_server.py` tests the API and rejects unknown API routes.
 
-Open `index.html` in a browser. Then change one word in the page, refresh it, and see what changed.
+## Run it
 
-The branch is named `lily-coding-basics` and is ready to push to GitHub.
+With Python 3 installed, run:
+
+```text
+python server.py
+```
+
+Then open `http://127.0.0.1:8000`. Opening `index.html` directly also works for the browser lessons, but the Python server enables the server status check and API data.
+
+Run the tests with:
+
+```text
+python -m unittest test_server.py -v
+```
+
+## Learning path
+
+1. Change the HTML in the editor and watch the preview update.
+2. Change the name in `app.js` and click **Run JavaScript**.
+3. Mark lessons explored. Progress is saved only in this browser on this computer.
+4. Change `stars` in the Python example and run it with Python.
